@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.weplan.mapper.PlanMapper">
+	<select id="findPlanById" parameterType="int"
+		resultType="org.weplan.model.Plan">
+		select * from plan where id=#{id}
+	</select>
+
+	<insert id="insertPlan" parameterType="org.weplan.model.Plan">
+		insert into plan(title) values(#{title})
+	</insert>
+
+</mapper>

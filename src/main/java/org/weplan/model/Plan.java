@@ -21,4 +21,9 @@ public class Plan {
 		this.title = title;
 	}
 	
+	@Override
+	public String toString() {
+		return "Plan [title=" + title + "]";
+	}
+	
 }

@@ -10,4 +10,5 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages="org.weplan")
 public class WebConfig implements WebMvcConfigurer {
 	
+	
 }
