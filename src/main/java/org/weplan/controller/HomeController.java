@@ -18,7 +18,7 @@ public class HomeController {
 	@RequestMapping(method=RequestMethod.POST)
 	public Plan home(@RequestBody Plan plan) throws Exception {
 		
-		planMapper.insertPlan(plan);
+		planMapper.insertSelective(plan);
 		return plan;
 	}
 }

@@ -3,8 +3,17 @@ package org.weplan.mapper;
 import org.weplan.model.Plan;
 
 public interface PlanMapper {
+    int deleteByPrimaryKey(Integer id);
 
-	public Plan findPlanById(int id) throws Exception;
+    int insert(Plan record);
 
-	public void insertPlan(Plan plan) throws Exception;
+    int insertSelective(Plan record);
+
+    Plan selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(Plan record);
+
+    int updateByPrimaryKeyWithBLOBs(Plan record);
+
+    int updateByPrimaryKey(Plan record);
 }
