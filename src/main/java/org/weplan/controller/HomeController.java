@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.weplan.mapper.PlanMapper;
 import org.weplan.model.Plan;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api("计划管理")
 @RestController
 @RequestMapping("/")
 public class HomeController {
@@ -15,6 +19,7 @@ public class HomeController {
 	@Autowired
 	private PlanMapper planMapper;
 	
+	@ApiOperation("新增计划")
 	@RequestMapping(method=RequestMethod.POST)
 	public Plan home(@RequestBody Plan plan) throws Exception {
 		
