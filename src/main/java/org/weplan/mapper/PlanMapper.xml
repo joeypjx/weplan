@@ -7,6 +7,7 @@
       <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="state" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="detail" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="date_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
       <arg column="start_date" javaType="java.util.Date" jdbcType="DATE" />
       <arg column="due_date" javaType="java.util.Date" jdbcType="DATE" />
@@ -23,46 +24,16 @@
       <arg column="members" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="org.weplan.model.Plan">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="state" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="date_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="start_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="due_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="start_time" javaType="java.util.Date" jdbcType="TIME" />
-      <arg column="due_time" javaType="java.util.Date" jdbcType="TIME" />
-      <arg column="recurrence" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="flag" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="importance" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="stick" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="project_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="tag_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="reminder" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="scene" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="members" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="detail" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, state, title, date_type, start_date, due_date, start_time, due_time, 
+    id, user_id, state, title, detail, date_type, start_date, due_date, start_time, due_time, 
     recurrence, flag, importance, stick, project_id, tag_id, reminder, scene, members, 
     create_time, update_time
   </sql>
-  <sql id="Blob_Column_List">
-    detail
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from plan
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -72,20 +43,20 @@
   </delete>
   <insert id="insert" parameterType="org.weplan.model.Plan">
     insert into plan (id, user_id, state, 
-      title, date_type, start_date, 
-      due_date, start_time, due_time, 
-      recurrence, flag, importance, 
-      stick, project_id, tag_id, 
-      reminder, scene, members, 
-      create_time, update_time, detail
+      title, detail, date_type, 
+      start_date, due_date, start_time, 
+      due_time, recurrence, flag, 
+      importance, stick, project_id, 
+      tag_id, reminder, scene, 
+      members, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{state,jdbcType=TINYINT}, 
-      #{title,jdbcType=VARCHAR}, #{dateType,jdbcType=TINYINT}, #{startDate,jdbcType=DATE}, 
-      #{dueDate,jdbcType=DATE}, #{startTime,jdbcType=TIME}, #{dueTime,jdbcType=TIME}, 
-      #{recurrence,jdbcType=VARCHAR}, #{flag,jdbcType=TINYINT}, #{importance,jdbcType=TINYINT}, 
-      #{stick,jdbcType=TINYINT}, #{projectId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, 
-      #{reminder,jdbcType=TIMESTAMP}, #{scene,jdbcType=VARCHAR}, #{members,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{detail,jdbcType=LONGVARCHAR}
+      #{title,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{dateType,jdbcType=TINYINT}, 
+      #{startDate,jdbcType=DATE}, #{dueDate,jdbcType=DATE}, #{startTime,jdbcType=TIME}, 
+      #{dueTime,jdbcType=TIME}, #{recurrence,jdbcType=VARCHAR}, #{flag,jdbcType=TINYINT}, 
+      #{importance,jdbcType=TINYINT}, #{stick,jdbcType=TINYINT}, #{projectId,jdbcType=INTEGER}, 
+      #{tagId,jdbcType=INTEGER}, #{reminder,jdbcType=TIMESTAMP}, #{scene,jdbcType=VARCHAR}, 
+      #{members,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.weplan.model.Plan">
@@ -102,6 +73,9 @@
       </if>
       <if test="title != null">
         title,
+      </if>
+      <if test="detail != null">
+        detail,
       </if>
       <if test="dateType != null">
         date_type,
@@ -151,9 +125,6 @@
       <if test="updateTime != null">
         update_time,
       </if>
-      <if test="detail != null">
-        detail,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -167,6 +138,9 @@
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
       </if>
       <if test="dateType != null">
         #{dateType,jdbcType=TINYINT},
@@ -216,9 +190,6 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="detail != null">
-        #{detail,jdbcType=LONGVARCHAR},
-      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="org.weplan.model.Plan">
@@ -232,6 +203,9 @@
       </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
       </if>
       <if test="dateType != null">
         date_type = #{dateType,jdbcType=TINYINT},
@@ -281,34 +255,7 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="detail != null">
-        detail = #{detail,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.weplan.model.Plan">
-    update plan
-    set user_id = #{userId,jdbcType=INTEGER},
-      state = #{state,jdbcType=TINYINT},
-      title = #{title,jdbcType=VARCHAR},
-      date_type = #{dateType,jdbcType=TINYINT},
-      start_date = #{startDate,jdbcType=DATE},
-      due_date = #{dueDate,jdbcType=DATE},
-      start_time = #{startTime,jdbcType=TIME},
-      due_time = #{dueTime,jdbcType=TIME},
-      recurrence = #{recurrence,jdbcType=VARCHAR},
-      flag = #{flag,jdbcType=TINYINT},
-      importance = #{importance,jdbcType=TINYINT},
-      stick = #{stick,jdbcType=TINYINT},
-      project_id = #{projectId,jdbcType=INTEGER},
-      tag_id = #{tagId,jdbcType=INTEGER},
-      reminder = #{reminder,jdbcType=TIMESTAMP},
-      scene = #{scene,jdbcType=VARCHAR},
-      members = #{members,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      detail = #{detail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.weplan.model.Plan">
@@ -316,6 +263,7 @@
     set user_id = #{userId,jdbcType=INTEGER},
       state = #{state,jdbcType=TINYINT},
       title = #{title,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
       date_type = #{dateType,jdbcType=TINYINT},
       start_date = #{startDate,jdbcType=DATE},
       due_date = #{dueDate,jdbcType=DATE},

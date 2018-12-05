@@ -13,7 +13,5 @@ public interface PlanMapper {
 
     int updateByPrimaryKeySelective(Plan record);
 
-    int updateByPrimaryKeyWithBLOBs(Plan record);
-
     int updateByPrimaryKey(Plan record);
 }

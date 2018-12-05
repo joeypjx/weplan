@@ -11,6 +11,8 @@ public class Plan {
 
     private String title;
 
+    private String detail;
+
     private Byte dateType;
 
     private Date startDate;
@@ -43,53 +45,28 @@ public class Plan {
 
     private Date updateTime;
 
-    private String detail;
-
-    public Plan(Integer id, Integer userId, Byte state, String title, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
+    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.state = state;
         this.title = title;
-        this.dateType = dateType;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
-        this.startTime = startTime;
-        this.dueTime = dueTime;
-        this.recurrence = recurrence;
-        this.flag = flag;
-        this.importance = importance;
-        this.stick = stick;
-        this.projectId = projectId;
-        this.tagId = tagId;
-        this.reminder = reminder;
-        this.scene = scene;
-        this.members = members;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
-
-    public Plan(Integer id, Integer userId, Byte state, String title, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime, String detail) {
-        this.id = id;
-        this.userId = userId;
-        this.state = state;
-        this.title = title;
-        this.dateType = dateType;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
-        this.startTime = startTime;
-        this.dueTime = dueTime;
-        this.recurrence = recurrence;
-        this.flag = flag;
-        this.importance = importance;
-        this.stick = stick;
-        this.projectId = projectId;
-        this.tagId = tagId;
-        this.reminder = reminder;
-        this.scene = scene;
-        this.members = members;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
         this.detail = detail;
+        this.dateType = dateType;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.startTime = startTime;
+        this.dueTime = dueTime;
+        this.recurrence = recurrence;
+        this.flag = flag;
+        this.importance = importance;
+        this.stick = stick;
+        this.projectId = projectId;
+        this.tagId = tagId;
+        this.reminder = reminder;
+        this.scene = scene;
+        this.members = members;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public Plan() {
@@ -126,6 +103,14 @@ public class Plan {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail == null ? null : detail.trim();
     }
 
     public Byte getDateType() {
@@ -254,13 +239,5 @@ public class Plan {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail == null ? null : detail.trim();
     }
 }
