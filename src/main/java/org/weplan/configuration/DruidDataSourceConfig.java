@@ -117,7 +117,7 @@ public class DruidDataSourceConfig{
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:org/weplan/mapper/*.xml"));
+        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapping/*.xml"));
         sessionFactory.setTypeAliasesPackage("org.weplan.mapper");
         return sessionFactory.getObject();
     }

@@ -59,7 +59,7 @@
       #{members,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="org.weplan.model.Plan">
+  <insert id="insertSelective" parameterType="org.weplan.model.Plan" useGeneratedKeys="true" keyProperty="id">
     insert into plan
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
