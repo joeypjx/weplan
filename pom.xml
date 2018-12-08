@@ -96,9 +96,9 @@
 
 		<!-- 数据库包 -->
 		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>${druid.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 
 		<dependency>

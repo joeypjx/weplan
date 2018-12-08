@@ -26,6 +26,32 @@
       <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
+  <resultMap id="BaseResultMapWithSort" type="org.weplan.model.Plan">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="state" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="detail" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="date_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="start_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="due_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="start_time" javaType="java.util.Date" jdbcType="TIME" />
+      <arg column="due_time" javaType="java.util.Date" jdbcType="TIME" />
+      <arg column="recurrence" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="importance" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="stick" javaType="java.lang.Byte" jdbcType="TINYINT" />
+      <arg column="project_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="tag_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="reminder" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="scene" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="members" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="sort" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
   <sql id="Base_Column_List">
     id, user_id, state, title, detail, date_type, start_date, due_date, start_time, due_time, 
     recurrence, flag, importance, stick, project_id, tag_id, reminder, scene, members, 
@@ -282,4 +308,15 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByUserId" parameterType="hashmap" resultMap="BaseResultMapWithSort">
+    select 
+    plan.*, plan_sort.sort
+    from plan inner join plan_sort
+    on plan_sort.plan_id = plan.id
+    where user_id = #{userId,jdbcType=INTEGER}
+    <if test='state != null'>
+    	AND state = #{state,jdbcType=TINYINT}
+    </if> 
+    order by plan_sort.sort;
+  </select>
 </mapper>

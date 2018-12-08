@@ -9,9 +9,8 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @EnableTransactionManagement //开启事务支持
-@Import(DruidDataSourceConfig.class)//导入数据源的配置
+@Import(DataSourceConfig.class)//导入数据源的配置
 @ComponentScan(basePackages = {"org.weplan"},
     excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
 public class RootConfig {
-	
 }

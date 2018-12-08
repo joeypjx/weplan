@@ -44,8 +44,10 @@ public class Plan {
     private Date createTime;
 
     private Date updateTime;
+    
+    private Integer sort; 
 
-    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
+    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime, Integer sort) {
         this.id = id;
         this.userId = userId;
         this.state = state;
@@ -67,6 +69,12 @@ public class Plan {
         this.members = members;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        
+        this.sort = sort;
+    }
+    
+    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
+    	this(id, userId, state, title, detail, dateType, startDate, dueDate, startTime, dueTime, recurrence, flag, importance, stick, projectId, tagId, reminder, scene, members, createTime, updateTime, null);
     }
 
     public Plan() {
@@ -240,4 +248,12 @@ public class Plan {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
 }

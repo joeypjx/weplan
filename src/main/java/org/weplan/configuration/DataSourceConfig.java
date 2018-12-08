@@ -1,8 +1,9 @@
 package org.weplan.configuration;
 
-import java.sql.SQLException;
+//import java.sql.SQLException;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -14,12 +15,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
-import com.alibaba.druid.pool.DruidDataSource;
+//import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration
 @PropertySource("classpath:jdbc.properties")
 @MapperScan(basePackages="org.weplan")
-public class DruidDataSourceConfig{
+public class DataSourceConfig{
     
     @Value("${spring.datasource.url}")  
     private String dbUrl;  
@@ -77,7 +78,7 @@ public class DruidDataSourceConfig{
       
     @Bean
     public DataSource dataSource(){
-        DruidDataSource datasource = new DruidDataSource();  
+    	BasicDataSource datasource = new BasicDataSource();  
           
         datasource.setUrl(this.dbUrl);  
         datasource.setUsername(username);  
@@ -85,8 +86,8 @@ public class DruidDataSourceConfig{
         datasource.setDriverClassName(driverClassName);  
         datasource.setInitialSize(initialSize);  
         datasource.setMinIdle(minIdle);  
-        datasource.setMaxActive(maxActive);  
-        datasource.setMaxWait(maxWait);  
+//        datasource.setMaxActive(maxActive);  
+//        datasource.setMaxWait(maxWait);  
         datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);  
         datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);  
         datasource.setValidationQuery(validationQuery);  
@@ -94,11 +95,11 @@ public class DruidDataSourceConfig{
         datasource.setTestOnBorrow(testOnBorrow);  
         datasource.setTestOnReturn(testOnReturn);  
         datasource.setPoolPreparedStatements(poolPreparedStatements);  
-        datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);  
-        try {  
-            datasource.setFilters(filters);  
-        } catch (SQLException e) {  
-        }  
+//        datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);  
+//        try {  
+//            datasource.setFilters(filters);  
+//        } catch (SQLException e) {  
+//        }  
         datasource.setConnectionProperties(connectionProperties);  
         return datasource;  
     }
