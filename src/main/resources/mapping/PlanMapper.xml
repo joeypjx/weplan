@@ -1,322 +1,375 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.weplan.mapper.PlanMapper">
-  <resultMap id="BaseResultMap" type="org.weplan.model.Plan">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="state" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="detail" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="date_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="start_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="due_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="start_time" javaType="java.util.Date" jdbcType="TIME" />
-      <arg column="due_time" javaType="java.util.Date" jdbcType="TIME" />
-      <arg column="recurrence" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="flag" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="importance" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="stick" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="project_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="tag_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="reminder" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="scene" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="members" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
-  </resultMap>
-  <resultMap id="BaseResultMapWithSort" type="org.weplan.model.Plan">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="state" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="detail" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="date_type" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="start_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="due_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="start_time" javaType="java.util.Date" jdbcType="TIME" />
-      <arg column="due_time" javaType="java.util.Date" jdbcType="TIME" />
-      <arg column="recurrence" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="flag" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="importance" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="stick" javaType="java.lang.Byte" jdbcType="TINYINT" />
-      <arg column="project_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="tag_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="reminder" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="scene" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="members" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="sort" javaType="java.lang.Integer" jdbcType="INTEGER" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, state, title, detail, date_type, start_date, due_date, start_time, due_time, 
-    recurrence, flag, importance, stick, project_id, tag_id, reminder, scene, members, 
-    create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from plan
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from plan
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="org.weplan.model.Plan">
-    insert into plan (id, user_id, state, 
-      title, detail, date_type, 
-      start_date, due_date, start_time, 
-      due_time, recurrence, flag, 
-      importance, stick, project_id, 
-      tag_id, reminder, scene, 
-      members, create_time, update_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{state,jdbcType=TINYINT}, 
-      #{title,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{dateType,jdbcType=TINYINT}, 
-      #{startDate,jdbcType=DATE}, #{dueDate,jdbcType=DATE}, #{startTime,jdbcType=TIME}, 
-      #{dueTime,jdbcType=TIME}, #{recurrence,jdbcType=VARCHAR}, #{flag,jdbcType=TINYINT}, 
-      #{importance,jdbcType=TINYINT}, #{stick,jdbcType=TINYINT}, #{projectId,jdbcType=INTEGER}, 
-      #{tagId,jdbcType=INTEGER}, #{reminder,jdbcType=TIMESTAMP}, #{scene,jdbcType=VARCHAR}, 
-      #{members,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="org.weplan.model.Plan" useGeneratedKeys="true" keyProperty="id">
-    insert into plan
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="detail != null">
-        detail,
-      </if>
-      <if test="dateType != null">
-        date_type,
-      </if>
-      <if test="startDate != null">
-        start_date,
-      </if>
-      <if test="dueDate != null">
-        due_date,
-      </if>
-      <if test="startTime != null">
-        start_time,
-      </if>
-      <if test="dueTime != null">
-        due_time,
-      </if>
-      <if test="recurrence != null">
-        recurrence,
-      </if>
-      <if test="flag != null">
-        flag,
-      </if>
-      <if test="importance != null">
-        importance,
-      </if>
-      <if test="stick != null">
-        stick,
-      </if>
-      <if test="projectId != null">
-        project_id,
-      </if>
-      <if test="tagId != null">
-        tag_id,
-      </if>
-      <if test="reminder != null">
-        reminder,
-      </if>
-      <if test="scene != null">
-        scene,
-      </if>
-      <if test="members != null">
-        members,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=TINYINT},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="detail != null">
-        #{detail,jdbcType=VARCHAR},
-      </if>
-      <if test="dateType != null">
-        #{dateType,jdbcType=TINYINT},
-      </if>
-      <if test="startDate != null">
-        #{startDate,jdbcType=DATE},
-      </if>
-      <if test="dueDate != null">
-        #{dueDate,jdbcType=DATE},
-      </if>
-      <if test="startTime != null">
-        #{startTime,jdbcType=TIME},
-      </if>
-      <if test="dueTime != null">
-        #{dueTime,jdbcType=TIME},
-      </if>
-      <if test="recurrence != null">
-        #{recurrence,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null">
-        #{flag,jdbcType=TINYINT},
-      </if>
-      <if test="importance != null">
-        #{importance,jdbcType=TINYINT},
-      </if>
-      <if test="stick != null">
-        #{stick,jdbcType=TINYINT},
-      </if>
-      <if test="projectId != null">
-        #{projectId,jdbcType=INTEGER},
-      </if>
-      <if test="tagId != null">
-        #{tagId,jdbcType=INTEGER},
-      </if>
-      <if test="reminder != null">
-        #{reminder,jdbcType=TIMESTAMP},
-      </if>
-      <if test="scene != null">
-        #{scene,jdbcType=VARCHAR},
-      </if>
-      <if test="members != null">
-        #{members,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.weplan.model.Plan">
-    update plan
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=TINYINT},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="detail != null">
-        detail = #{detail,jdbcType=VARCHAR},
-      </if>
-      <if test="dateType != null">
-        date_type = #{dateType,jdbcType=TINYINT},
-      </if>
-      <if test="startDate != null">
-        start_date = #{startDate,jdbcType=DATE},
-      </if>
-      <if test="dueDate != null">
-        due_date = #{dueDate,jdbcType=DATE},
-      </if>
-      <if test="startTime != null">
-        start_time = #{startTime,jdbcType=TIME},
-      </if>
-      <if test="dueTime != null">
-        due_time = #{dueTime,jdbcType=TIME},
-      </if>
-      <if test="recurrence != null">
-        recurrence = #{recurrence,jdbcType=VARCHAR},
-      </if>
-      <if test="flag != null">
-        flag = #{flag,jdbcType=TINYINT},
-      </if>
-      <if test="importance != null">
-        importance = #{importance,jdbcType=TINYINT},
-      </if>
-      <if test="stick != null">
-        stick = #{stick,jdbcType=TINYINT},
-      </if>
-      <if test="projectId != null">
-        project_id = #{projectId,jdbcType=INTEGER},
-      </if>
-      <if test="tagId != null">
-        tag_id = #{tagId,jdbcType=INTEGER},
-      </if>
-      <if test="reminder != null">
-        reminder = #{reminder,jdbcType=TIMESTAMP},
-      </if>
-      <if test="scene != null">
-        scene = #{scene,jdbcType=VARCHAR},
-      </if>
-      <if test="members != null">
-        members = #{members,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.weplan.model.Plan">
-    update plan
-    set user_id = #{userId,jdbcType=INTEGER},
-      state = #{state,jdbcType=TINYINT},
-      title = #{title,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR},
-      date_type = #{dateType,jdbcType=TINYINT},
-      start_date = #{startDate,jdbcType=DATE},
-      due_date = #{dueDate,jdbcType=DATE},
-      start_time = #{startTime,jdbcType=TIME},
-      due_time = #{dueTime,jdbcType=TIME},
-      recurrence = #{recurrence,jdbcType=VARCHAR},
-      flag = #{flag,jdbcType=TINYINT},
-      importance = #{importance,jdbcType=TINYINT},
-      stick = #{stick,jdbcType=TINYINT},
-      project_id = #{projectId,jdbcType=INTEGER},
-      tag_id = #{tagId,jdbcType=INTEGER},
-      reminder = #{reminder,jdbcType=TIMESTAMP},
-      scene = #{scene,jdbcType=VARCHAR},
-      members = #{members,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByUserId" parameterType="hashmap" resultMap="BaseResultMapWithSort">
-    select 
-    plan.*, plan_sort.sort
-    from plan inner join plan_sort
-    on plan_sort.plan_id = plan.id
-    where user_id = #{userId,jdbcType=INTEGER}
-    <if test='state != null'>
-    	AND state = #{state,jdbcType=TINYINT}
-    </if> 
-    order by plan_sort.sort;
-  </select>
+	<resultMap id="BaseResultMap" type="org.weplan.model.Plan">
+		<constructor>
+			<idArg column="id" javaType="java.lang.Integer"
+				jdbcType="INTEGER" />
+			<arg column="user_id" javaType="java.lang.Integer"
+				jdbcType="INTEGER" />
+			<arg column="state" javaType="java.lang.Byte" jdbcType="TINYINT" />
+			<arg column="title" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+			<arg column="detail" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+			<arg column="date_type" javaType="java.lang.Byte"
+				jdbcType="TINYINT" />
+			<arg column="start_date" javaType="java.util.Date"
+				jdbcType="DATE" />
+			<arg column="due_date" javaType="java.util.Date" jdbcType="DATE" />
+			<arg column="start_time" javaType="java.util.Date"
+				jdbcType="TIME" />
+			<arg column="due_time" javaType="java.util.Date" jdbcType="TIME" />
+			<arg column="recurrence" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+			<arg column="flag" javaType="java.lang.Byte" jdbcType="TINYINT" />
+			<arg column="importance" javaType="java.lang.Byte"
+				jdbcType="TINYINT" />
+			<arg column="stick" javaType="java.lang.Byte" jdbcType="TINYINT" />
+			<arg column="project_id" javaType="java.lang.Integer"
+				jdbcType="INTEGER" />
+			<arg column="tag_id" javaType="java.lang.Integer"
+				jdbcType="INTEGER" />
+			<arg column="reminder" javaType="java.util.Date"
+				jdbcType="TIMESTAMP" />
+			<arg column="scene" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+			<arg column="members" javaType="java.lang.String"
+				jdbcType="VARCHAR" />
+			<arg column="create_time" javaType="java.util.Date"
+				jdbcType="TIMESTAMP" />
+			<arg column="update_time" javaType="java.util.Date"
+				jdbcType="TIMESTAMP" />
+		</constructor>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, state, title, detail, date_type, start_date,
+		due_date,
+		start_time, due_time,
+		recurrence, flag, importance, stick,
+		project_id, tag_id, reminder, scene,
+		members,
+		create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from plan
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from plan
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="org.weplan.model.Plan">
+		insert into plan (id, user_id,
+		state,
+		title, detail, date_type,
+		start_date, due_date, start_time,
+		due_time, recurrence, flag,
+		importance, stick, project_id,
+		tag_id,
+		reminder, scene,
+		members, create_time, update_time
+		)
+		values
+		(#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+		#{state,jdbcType=TINYINT},
+		#{title,jdbcType=VARCHAR},
+		#{detail,jdbcType=VARCHAR}, #{dateType,jdbcType=TINYINT},
+		#{startDate,jdbcType=DATE}, #{dueDate,jdbcType=DATE},
+		#{startTime,jdbcType=TIME},
+		#{dueTime,jdbcType=TIME},
+		#{recurrence,jdbcType=VARCHAR}, #{flag,jdbcType=TINYINT},
+		#{importance,jdbcType=TINYINT}, #{stick,jdbcType=TINYINT},
+		#{projectId,jdbcType=INTEGER},
+		#{tagId,jdbcType=INTEGER},
+		#{reminder,jdbcType=TIMESTAMP}, #{scene,jdbcType=VARCHAR},
+		#{members,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="org.weplan.model.Plan" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into plan
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="detail != null">
+				detail,
+			</if>
+			<if test="dateType != null">
+				date_type,
+			</if>
+			<if test="startDate != null">
+				start_date,
+			</if>
+			<if test="dueDate != null">
+				due_date,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="dueTime != null">
+				due_time,
+			</if>
+			<if test="recurrence != null">
+				recurrence,
+			</if>
+			<if test="flag != null">
+				flag,
+			</if>
+			<if test="importance != null">
+				importance,
+			</if>
+			<if test="stick != null">
+				stick,
+			</if>
+			<if test="projectId != null">
+				project_id,
+			</if>
+			<if test="tagId != null">
+				tag_id,
+			</if>
+			<if test="reminder != null">
+				reminder,
+			</if>
+			<if test="scene != null">
+				scene,
+			</if>
+			<if test="members != null">
+				members,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=TINYINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="detail != null">
+				#{detail,jdbcType=VARCHAR},
+			</if>
+			<if test="dateType != null">
+				#{dateType,jdbcType=TINYINT},
+			</if>
+			<if test="startDate != null">
+				#{startDate,jdbcType=DATE},
+			</if>
+			<if test="dueDate != null">
+				#{dueDate,jdbcType=DATE},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIME},
+			</if>
+			<if test="dueTime != null">
+				#{dueTime,jdbcType=TIME},
+			</if>
+			<if test="recurrence != null">
+				#{recurrence,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				#{flag,jdbcType=TINYINT},
+			</if>
+			<if test="importance != null">
+				#{importance,jdbcType=TINYINT},
+			</if>
+			<if test="stick != null">
+				#{stick,jdbcType=TINYINT},
+			</if>
+			<if test="projectId != null">
+				#{projectId,jdbcType=INTEGER},
+			</if>
+			<if test="tagId != null">
+				#{tagId,jdbcType=INTEGER},
+			</if>
+			<if test="reminder != null">
+				#{reminder,jdbcType=TIMESTAMP},
+			</if>
+			<if test="scene != null">
+				#{scene,jdbcType=VARCHAR},
+			</if>
+			<if test="members != null">
+				#{members,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="org.weplan.model.Plan">
+		update plan
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=TINYINT},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="detail != null">
+				detail = #{detail,jdbcType=VARCHAR},
+			</if>
+			<if test="dateType != null">
+				date_type = #{dateType,jdbcType=TINYINT},
+			</if>
+			<if test="startDate != null">
+				start_date = #{startDate,jdbcType=DATE},
+			</if>
+			<if test="dueDate != null">
+				due_date = #{dueDate,jdbcType=DATE},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIME},
+			</if>
+			<if test="dueTime != null">
+				due_time = #{dueTime,jdbcType=TIME},
+			</if>
+			<if test="recurrence != null">
+				recurrence = #{recurrence,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				flag = #{flag,jdbcType=TINYINT},
+			</if>
+			<if test="importance != null">
+				importance = #{importance,jdbcType=TINYINT},
+			</if>
+			<if test="stick != null">
+				stick = #{stick,jdbcType=TINYINT},
+			</if>
+			<if test="projectId != null">
+				project_id = #{projectId,jdbcType=INTEGER},
+			</if>
+			<if test="tagId != null">
+				tag_id = #{tagId,jdbcType=INTEGER},
+			</if>
+			<if test="reminder != null">
+				reminder = #{reminder,jdbcType=TIMESTAMP},
+			</if>
+			<if test="scene != null">
+				scene = #{scene,jdbcType=VARCHAR},
+			</if>
+			<if test="members != null">
+				members = #{members,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="org.weplan.model.Plan">
+		update plan
+		set user_id = #{userId,jdbcType=INTEGER},
+		state = #{state,jdbcType=TINYINT},
+		title = #{title,jdbcType=VARCHAR},
+		detail = #{detail,jdbcType=VARCHAR},
+		date_type =
+		#{dateType,jdbcType=TINYINT},
+		start_date = #{startDate,jdbcType=DATE},
+		due_date = #{dueDate,jdbcType=DATE},
+		start_time =
+		#{startTime,jdbcType=TIME},
+		due_time = #{dueTime,jdbcType=TIME},
+		recurrence = #{recurrence,jdbcType=VARCHAR},
+		flag =
+		#{flag,jdbcType=TINYINT},
+		importance = #{importance,jdbcType=TINYINT},
+		stick = #{stick,jdbcType=TINYINT},
+		project_id =
+		#{projectId,jdbcType=INTEGER},
+		tag_id = #{tagId,jdbcType=INTEGER},
+		reminder = #{reminder,jdbcType=TIMESTAMP},
+		scene =
+		#{scene,jdbcType=VARCHAR},
+		members = #{members,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByUserId" parameterType="hashmap"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from plan
+		where user_id = #{userId,jdbcType=INTEGER}
+		<if test='state != null'>
+			AND state = #{state,jdbcType=TINYINT}
+		</if>
+
+		<choose>
+			<when test="type == 1">
+				AND <![CDATA[((datediff(now(), start_date) >= 0 && datediff(now(), due_date) <= 0) OR date_type = 3 OR (date_type = 4 && weekday(now()) + 1 = recurrence))]]>
+			</when>
+			<when test="type == 2">
+				AND <![CDATA[datediff(now(), start_date) = -1 OR (date_type = 4 && weekday(now()) + 2 = recurrence)]]>
+			</when>
+			<when test="type == 3">
+				AND <![CDATA[(yearweek(now(), 1) = yearweek(start_date, 1) && datediff(now(), start_date) < -1) OR (date_type = 4 && recurrence - weekday(now()) > 2)]]>
+			</when>
+			<when test="type == 4">
+				AND <![CDATA[yearweek(now(), 1) != yearweek(start_date, 1) && datediff(now(), start_date) < 0]]>
+			</when>
+			<when test="type == 5">
+				AND <![CDATA[datediff(now(), due_date) > 0 OR (date_type = 4 && recurrence - weekday(now()) < 0)]]>
+			</when>
+			<when test="type == 6">
+				AND date_type = 0
+			</when>
+		</choose>
+
+		<choose>
+			<when test="stick != null">
+				AND stick = #{stick,jdbcType=TINYINT}
+			</when>
+			<otherwise>
+				AND stick = 0
+			</otherwise>
+		</choose>
+
+		<if test='limit != null'>
+			limit #{limit,jdbcType=TINYINT}
+		</if>
+		<if test='offset != null'>
+			offset #{offset,jdbcType=TINYINT}
+		</if>
+		;
+	</select>
 </mapper>

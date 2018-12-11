@@ -2,6 +2,8 @@ package org.weplan.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Plan {
     private Integer id;
 
@@ -45,9 +47,7 @@ public class Plan {
 
     private Date updateTime;
     
-    private Integer sort; 
-
-    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime, Integer sort) {
+    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.state = state;
@@ -69,14 +69,8 @@ public class Plan {
         this.members = members;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        
-        this.sort = sort;
     }
     
-    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
-    	this(id, userId, state, title, detail, dateType, startDate, dueDate, startTime, dueTime, recurrence, flag, importance, stick, projectId, tagId, reminder, scene, members, createTime, updateTime, null);
-    }
-
     public Plan() {
         super();
     }
@@ -129,6 +123,7 @@ public class Plan {
         this.dateType = dateType;
     }
 
+    @JsonFormat(pattern="YYYY-MM-dd")
     public Date getStartDate() {
         return startDate;
     }
@@ -137,6 +132,7 @@ public class Plan {
         this.startDate = startDate;
     }
 
+    @JsonFormat(pattern="YYYY-MM-dd")
     public Date getDueDate() {
         return dueDate;
     }
@@ -145,6 +141,7 @@ public class Plan {
         this.dueDate = dueDate;
     }
 
+    @JsonFormat(pattern="HH:mm")
     public Date getStartTime() {
         return startTime;
     }
@@ -153,6 +150,7 @@ public class Plan {
         this.startTime = startTime;
     }
 
+    @JsonFormat(pattern="HH:mm")
     public Date getDueTime() {
         return dueTime;
     }
@@ -248,12 +246,4 @@ public class Plan {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
-	public Integer getSort() {
-		return sort;
-	}
-
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
 }
