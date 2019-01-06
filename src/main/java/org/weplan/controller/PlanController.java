@@ -40,14 +40,14 @@ public class PlanController {
 	
 	@ApiOperation("计划列表")
 	@RequestMapping(value="/plans", method=RequestMethod.GET)
-	public List<Plan> selectPlansByUserId(@RequestParam int userId, @RequestParam int state, @RequestParam(required = false) Integer limit, @RequestParam(required = false) Integer offset, @RequestParam(required = false) Integer type, @RequestParam(required = false) Integer stick) {
+	public List<Plan> selectPlansByUserId(@RequestParam int userId, @RequestParam(required = false) Integer state, @RequestParam(required = false) Integer type, @RequestParam(required = false) Integer stick, @RequestParam(required = false) Integer limit, @RequestParam(required = false) Integer offset) {
 		HashMap<String, Object> map= new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("state", state);
-		map.put("limit", limit);
-		map.put("offset", offset);
 		map.put("type", type);
 		map.put("stick", stick);
+		map.put("limit", limit);
+		map.put("offset", offset);
 		List<Plan> plans = planMapper.selectByUserId(map);
 		return plans;
 	}

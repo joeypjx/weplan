@@ -25,7 +25,7 @@ public class Plan {
 
     private Date dueTime;
 
-    private String recurrence;
+    private Integer recurrence;
 
     private Byte flag;
 
@@ -47,7 +47,7 @@ public class Plan {
 
     private Date updateTime;
     
-    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, String recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
+    public Plan(Integer id, Integer userId, Byte state, String title, String detail, Byte dateType, Date startDate, Date dueDate, Date startTime, Date dueTime, Integer recurrence, Byte flag, Byte importance, Byte stick, Integer projectId, Integer tagId, Date reminder, String scene, String members, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.state = state;
@@ -159,12 +159,12 @@ public class Plan {
         this.dueTime = dueTime;
     }
 
-    public String getRecurrence() {
+    public Integer getRecurrence() {
         return recurrence;
     }
 
-    public void setRecurrence(String recurrence) {
-        this.recurrence = recurrence == null ? null : recurrence.trim();
+    public void setRecurrence(Integer recurrence) {
+        this.recurrence = recurrence;
     }
 
     public Byte getFlag() {

@@ -20,8 +20,8 @@
 			<arg column="start_time" javaType="java.util.Date"
 				jdbcType="TIME" />
 			<arg column="due_time" javaType="java.util.Date" jdbcType="TIME" />
-			<arg column="recurrence" javaType="java.lang.String"
-				jdbcType="VARCHAR" />
+			<arg column="recurrence" javaType="java.lang.Integer"
+				jdbcType="INTEGER" />
 			<arg column="flag" javaType="java.lang.Byte" jdbcType="TINYINT" />
 			<arg column="importance" javaType="java.lang.Byte"
 				jdbcType="TINYINT" />
@@ -82,7 +82,7 @@
 		#{startDate,jdbcType=DATE}, #{dueDate,jdbcType=DATE},
 		#{startTime,jdbcType=TIME},
 		#{dueTime,jdbcType=TIME},
-		#{recurrence,jdbcType=VARCHAR}, #{flag,jdbcType=TINYINT},
+		#{recurrence,jdbcType=INTEGER}, #{flag,jdbcType=TINYINT},
 		#{importance,jdbcType=TINYINT}, #{stick,jdbcType=TINYINT},
 		#{projectId,jdbcType=INTEGER},
 		#{tagId,jdbcType=INTEGER},
@@ -192,7 +192,7 @@
 				#{dueTime,jdbcType=TIME},
 			</if>
 			<if test="recurrence != null">
-				#{recurrence,jdbcType=VARCHAR},
+				#{recurrence,jdbcType=INTEGER},
 			</if>
 			<if test="flag != null">
 				#{flag,jdbcType=TINYINT},
@@ -258,7 +258,7 @@
 				due_time = #{dueTime,jdbcType=TIME},
 			</if>
 			<if test="recurrence != null">
-				recurrence = #{recurrence,jdbcType=VARCHAR},
+				recurrence = #{recurrence,jdbcType=INTEGER},
 			</if>
 			<if test="flag != null">
 				flag = #{flag,jdbcType=TINYINT},
@@ -307,7 +307,7 @@
 		start_time =
 		#{startTime,jdbcType=TIME},
 		due_time = #{dueTime,jdbcType=TIME},
-		recurrence = #{recurrence,jdbcType=VARCHAR},
+		recurrence = #{recurrence,jdbcType=INTEGER},
 		flag =
 		#{flag,jdbcType=TINYINT},
 		importance = #{importance,jdbcType=TINYINT},
@@ -336,19 +336,19 @@
 
 		<choose>
 			<when test="type == 1">
-				AND <![CDATA[((datediff(now(), start_date) >= 0 && datediff(now(), due_date) <= 0) OR date_type = 3 OR (date_type = 4 && weekday(now()) + 1 = recurrence))]]>
+				AND <![CDATA[((datediff(now(), start_date) >= 0 && datediff(now(), due_date) <= 0) OR date_type = 3)]]>
 			</when>
 			<when test="type == 2">
-				AND <![CDATA[datediff(now(), start_date) = -1 OR (date_type = 4 && weekday(now()) + 2 = recurrence)]]>
+				AND <![CDATA[datediff(now(), start_date) = -1]]>
 			</when>
 			<when test="type == 3">
-				AND <![CDATA[(yearweek(now(), 1) = yearweek(start_date, 1) && datediff(now(), start_date) < -1) OR (date_type = 4 && recurrence - weekday(now()) > 2)]]>
+				AND <![CDATA[(yearweek(now(), 1) = yearweek(start_date, 1) && datediff(now(), start_date) < -1)]]>
 			</when>
 			<when test="type == 4">
 				AND <![CDATA[yearweek(now(), 1) != yearweek(start_date, 1) && datediff(now(), start_date) < 0]]>
 			</when>
 			<when test="type == 5">
-				AND <![CDATA[datediff(now(), due_date) > 0 OR (date_type = 4 && recurrence - weekday(now()) < 0)]]>
+				AND <![CDATA[datediff(now(), due_date) > 0]]>
 			</when>
 			<when test="type == 6">
 				AND date_type = 0
