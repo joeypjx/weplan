@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.weplan.mapper.PlanMapper;
 import org.weplan.mapper.PlanSortMapper;
+import org.weplan.mapper.RecordMapper;
 import org.weplan.model.Plan;
 import org.weplan.model.PlanSort;
+import org.weplan.model.Record;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +30,9 @@ public class PlanController {
 	
 	@Autowired
 	private PlanSortMapper planSortMapper;
+	
+	@Autowired
+	private RecordMapper recordMapper;
 	
 	@ApiOperation("新增计划")
 	@RequestMapping(value="/plan", method=RequestMethod.POST)
@@ -62,7 +67,17 @@ public class PlanController {
 	@ApiOperation("修改计划")
 	@RequestMapping(value="/plan", method=RequestMethod.PUT)
 	public int updatePlan(@RequestBody Plan plan) {
-		planMapper.updateByPrimaryKeySelective(plan);
+		if (plan.getState() == null || plan.getDateType() < 3) {
+			planMapper.updateByPrimaryKeySelective(plan);
+			return 0;
+		}
+		
+		if (plan.getState() == 0) {
+//				删除今天的打卡记录
+		} else {
+//			新增今天的打卡记录
+		}
+	
 		return 0;
 	}
 	
@@ -72,6 +87,14 @@ public class PlanController {
 		
 		planSortMapper.updateByPlanId(planSort);
 		return planSort;
+	}
+	
+	@ApiOperation("新增打卡记录")
+	@RequestMapping(value="/record", method=RequestMethod.POST)
+	public Record insertRecord(@RequestBody Record record) throws Exception {
+		
+		recordMapper.insertSelective(record);
+		return record;
 	}
 	
 	private int insertPlanSort(int planId, int userId) throws Exception {

@@ -82,7 +82,13 @@
                selectByExampleQueryId="false">
         </table> -->
         
-        <table tableName="record" domainObjectName="Record"
+        <!-- table tableName="record" domainObjectName="Record"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table> -->
+        
+        <table tableName="project" domainObjectName="Project"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
